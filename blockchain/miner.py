@@ -1,6 +1,6 @@
 import hashlib
 import requests
-
+import json
 import sys
 
 from uuid import uuid4
@@ -23,8 +23,18 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
-    #  TODO: Your code here
+    # create and encode last hash
+    last_hash = f'{last_proof}'.encode()
+
+    # create hash object
+    hash_obj = hashlib.sha256(last_hash).hexdigest()
+
+    # create proof by taking last proof and multiplying it by a rando# between 0 and 100
+    proof = last_proof * random.randint(0, 100)
+
+    # until flagged as valid (true) add one to the proof
+    while valid_proof(hash_obj, proof) is False:
+        proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -35,16 +45,21 @@ def valid_proof(last_hash, proof):
     Validates the Proof:  Multi-ouroborus:  Do the last six characters of
     the hash of the last proof match the first six characters of the hash
     of the new proof?
-
     IE:  last_hash: ...AE9123456, new hash 123456E88...
     """
+    # create a guess, encode it
+    guess = f'{proof}'.encode()
 
-    # TODO: Your code here!
-    pass
+    # create a guess hash
+    guess_hash = hashlib.sha256(guess).hexdigest()
+
+    # check for equality
+    return guess_hash[:6] == last_hash[-6:]
 
 
 if __name__ == '__main__':
     # What node are we interacting with?
+    # check for nodes in sys.argv if none then node is the string
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
