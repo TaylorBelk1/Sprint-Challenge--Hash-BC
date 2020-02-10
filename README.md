@@ -24,11 +24,17 @@ This sprint challenge is divided up into three parts:  Hash tables coding, block
 
 Explain in detail the workings of a dynamic array:
 * What is the runtime complexity to access an array, add or remove from the front, and add or remove from the back?
+        access: O(n)
+        add/remove front: O(n) (add, then "scoot" all others down/over)
+        add/remove back: O(1)
 * What is the worse case scenario if you try to extend the storage size of a dynamic array?
+    O(n)
 
 Explain how a blockchain is structured. What are the blocks, what is the chain? How is the data organized?
- 
+    block of data w/ proof of work, prev block, transactions. Chain refs to hash of prev block that is req. to access the next block in chain
+
 Explain how proof of work functions. How does it operate. How does this protect the chain from attack. What kind of attack is possible?
+    proof of work is complex and reqs lots of computing power. Easy verification afterwards though. prevents an attack because no one computer would be able to beat the collective of all other miners in oder to alter the chain. If they do it can be checked easily.
 
 ## Project Set Up
 
@@ -44,7 +50,7 @@ A hash table implementation has been included for you already. Your task is to g
 
 For the blockchain portion of the challenge, you will be writing code for a new miner that will solve a different Proof of Work algorithm than the one we have been working with.
 
-Your goal is to mine at least one coin.  Keep in mind that with many people competing over the same coins, this may take a long time.  By our math, we expect that an average solution should be the first to find a solution at least once in an hour or two of mining.  
+Your goal is to mine at least one coin.  Keep in mind that with many people competing over the same coins, this may take a long time.  By our math, we expect that an average solution should be the first to find a solution at least once in an hour or two of mining.
 
 ## Minimum Viable Product
 
